@@ -77,6 +77,23 @@ const baseConfig = new ScratchWebpackConfigBuilder(
                 from: 'src/lib/themes/high-contrast/blocks-media',
                 to: 'static/blocks-media/high-contrast',
                 force: true
+            },
+            {
+                // Self-host the MediaPipe face-detection model + WASM that the
+                // Face Sensing extension loads at runtime.
+                //
+                // Without this the extension falls back to fetching them from
+                // the jsDelivr CDN, which school networks routinely block — the
+                // failure mode is a silently dead extension on exactly the
+                // devices this platform targets.
+                //
+                // The package is a dependency of the scratch-vm fork (that is
+                // where the extension requires it from), so resolve it there
+                // rather than duplicating a 13MB install into this package.
+                from: path.dirname(require.resolve('@mediapipe/face_detection/package.json', {
+                    paths: [path.join(__dirname, '../scratch-vm')]
+                })),
+                to: 'chunks/mediapipe/face_detection'
             }
         ]
     }));

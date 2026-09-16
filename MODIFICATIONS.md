@@ -18,7 +18,7 @@ for the AI Lab for Kids K-8 machine learning platform.
 | `src/lib/libraries/extensions/index.jsx` | Added five extension library cards — Face Sensing plus AI Lab Vision, Voice, Text and Numbers — so they appear in the "Choose an Extension" picker. The AI Lab icons are temporarily reused from existing Scratch extensions. |
 | `src/lib/libraries/extensions/faceSensing/` | **Ported, not authored.** `faceSensing.png` and `faceSensing-small.svg` copied verbatim from [`scratchfoundation/scratch-editor`](https://github.com/scratchfoundation/scratch-editor), which is AGPL-3.0 like this repo. Copyright remains with the Scratch Foundation. |
 | `package.json` | Points `scratch-vm` at the local modified fork (`file:../scratch-vm`); pins `react`/`react-dom` to 16.x. |
-| `webpack.config.js` | Re-added the sandboxed `extension-worker` entry point so runtime URL-loaded extensions work without rebuilding the whole GUI bundle. |
+| `webpack.config.js` | Re-added the sandboxed `extension-worker` entry point so runtime URL-loaded extensions work without rebuilding the whole GUI bundle. Also copies `@mediapipe/face_detection` into `chunks/mediapipe/face_detection` so Face Sensing's model and WASM are self-hosted rather than fetched from a public CDN — school networks routinely block CDNs, and the failure mode there is a silently dead extension. |
 
 No upstream scratch-gui behaviour was altered other than the extension-library
 registration above; the changes are additive.
