@@ -41,6 +41,9 @@ import boostConnectionIconURL from './boost/boost-illustration.svg';
 import boostConnectionSmallIconURL from './boost/boost-small.svg';
 import boostConnectionTipIconURL from './boost/boost-button-illustration.svg';
 
+import faceSensingIconURL from './faceSensing/faceSensing.png';
+import faceSensingInsetIconURL from './faceSensing/faceSensing-small.svg';
+
 import gdxforIconURL from './gdxfor/gdxfor.png';
 import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
@@ -317,6 +320,18 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
+    },
+    {
+        // Ported from scratchfoundation/scratch-editor (AGPL-3.0, same licence
+        // as this fork). Face Sensing shipped to Scratch after the standalone
+        // scratch-gui/scratch-vm repos were archived, so it only exists in the
+        // mono-repo — see MODIFICATIONS.md.
+        name: 'Face Sensing',
+        extensionId: 'faceSensing',
+        iconURL: faceSensingIconURL,
+        insetIconURL: faceSensingInsetIconURL,
+        description: 'Sense faces with the camera.',
+        featured: true
     },
     {
         name: 'AI Lab Vision',
