@@ -317,5 +317,42 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
+    },
+    {
+        name: 'AI Lab Vision',
+        extensionId: 'ailabVision',
+        iconURL: videoSensingIconURL,
+        insetIconURL: videoSensingInsetIconURL,
+        description: 'Live machine learning vision classification.',
+        featured: true
+    },
+    {
+        name: 'AI Lab Voice',
+        extensionId: 'ailabVoice',
+        // TODO: replace with dedicated voice-themed icons; reusing text2speech
+        // assets for now so the card renders consistently.
+        iconURL: text2speechIconURL,
+        insetIconURL: text2speechInsetIconURL,
+        description: 'Live machine learning sound classification.',
+        featured: true
+    },
+    {
+        name: 'AI Lab Text',
+        extensionId: 'ailabText',
+        // Reusing translate assets for now so the card renders consistently.
+        iconURL: translateIconURL,
+        insetIconURL: translateInsetIconURL,
+        description: 'Live machine learning text classification.',
+        featured: true
+    },
+    {
+        name: 'AI Lab Numbers',
+        extensionId: 'ailabNumbers',
+        // Reusing gdxfor (sensor/number-themed) assets for now so the card
+        // renders consistently with the other AI Lab cards.
+        iconURL: gdxforIconURL,
+        insetIconURL: gdxforInsetIconURL,
+        description: 'Collect data and predict numbers with machine learning.',
+        featured: true
     }
 ];

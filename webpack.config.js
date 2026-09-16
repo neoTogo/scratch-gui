@@ -40,7 +40,13 @@ const baseConfig = new ScratchWebpackConfigBuilder(
         resolve: {
             fallback: {
                 Buffer: require.resolve('buffer/'),
-                stream: require.resolve('stream-browserify')
+                stream: require.resolve('stream-browserify'),
+                // The ML4K speech-commands fork ships an ESM bundle that
+                // contains Node-only fallback code paths (used by the lib's
+                // node-export entry). The browser never reaches them; tell
+                // webpack to stub `fs` and `util` so the bundle resolves.
+                fs: false,
+                util: false
             }
         }
     })
@@ -71,11 +77,6 @@ const baseConfig = new ScratchWebpackConfigBuilder(
                 from: 'src/lib/themes/high-contrast/blocks-media',
                 to: 'static/blocks-media/high-contrast',
                 force: true
-            },
-            {
-                context: 'node_modules/scratch-vm/dist/web',
-                from: 'extension-worker.{js,js.map}',
-                noErrorOnMissing: true
             }
         ]
     }));
@@ -102,6 +103,11 @@ const distConfig = baseConfig.clone()
                     from: 'src/lib/libraries/*.json',
                     to: 'libraries',
                     flatten: true
+                },
+                {
+                    context: 'node_modules/scratch-vm/dist/web',
+                    from: 'extension-worker.{js,js.map}',
+                    noErrorOnMissing: true
                 }
             ]
         })
@@ -115,7 +121,11 @@ const buildConfig = baseConfig.clone()
             gui: './src/playground/index.jsx',
             blocksonly: './src/playground/blocks-only.jsx',
             compatibilitytesting: './src/playground/compatibility-testing.jsx',
-            player: './src/playground/player.jsx'
+            player: './src/playground/player.jsx',
+            // Sandboxed extension Web Worker. Re-added to support runtime
+            // URL-loaded extensions (e.g. voice + future modules) without
+            // rebuilding the entire GUI bundle for each new extension.
+            'extension-worker': './node_modules/scratch-vm/src/extension-support/extension-worker'
         },
         output: {
             path: path.resolve(__dirname, 'build')
